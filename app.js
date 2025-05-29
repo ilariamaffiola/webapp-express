@@ -12,6 +12,13 @@ const app = express();
 //definisco la porta
 const port = process.env.SERVER_PORT;
 
+//importo il router
+const movieRouter = require('./router/movieRouter');
+
+//importo i middleware
+const errorsHandler = require('./middlewares/errorsHandler');
+const notFoundHandler = require('./middlewares/notFound');
+
 //uso il middleware per gli asset statici
 app.use(express.static('public'));
 
@@ -23,6 +30,12 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.send('Moovie API server');
 });
+
+app.use('/api/movies', movieRouter);
+
+//utilizzo i middleware
+app.use(errorsHandler);
+app.use(notFoundHandler);
 
 //dico al servere di ascoltare sulla porta definita
 app.listen(port, () => {
