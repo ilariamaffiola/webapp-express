@@ -10,7 +10,7 @@ dotenv.config();
 //iniziallizzo express
 const app = express();
 //definisco la porta
-const port = process.env.PORT;
+const port = process.env.SERVER_PORT;
 
 //uso il middleware per gli asset statici
 app.use(express.static('public'));
