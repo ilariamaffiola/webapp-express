@@ -3,7 +3,7 @@ const connection = require('../data/db');
 
 //index
 const index = (req, res) => {
-    connection.query("SELECT * FROM movie", (err, movieResults) => {
+    connection.query("SELECT * FROM movies", (err, movieResults) => {
         if(err) return res.status(500).json({error: "Database query failed:" +err });
             
 
@@ -31,12 +31,15 @@ const show = (req, res) => {
         if(movieResult.length===0 || movieResult[0].id ===null) return res.status(404).json({error: "Movie not found"});
         const movie = movieResult[0];
         //eseguo la query per il recupero delle rensioni
-        connection.query(reviewsSql, [id], (err, reviewResult) => {
+        connection.query(reviewsSql, [id], (err, reviewsResult) => {
             if(err) return res.status(500).json({error: "Database query failed:" +err });
-
+            //aggiungo le recensioni al film
+            movie.reviews = reviewsResult;
+            
+            return res.json(movie);
         })
 
-        return res.json(movieResult);
+        
 
     })
 }
