@@ -16,5 +16,5 @@ Inserire le vostre rotte in un router
 Inserire un middleware per le rotte inesistenti
 Inserire un middleware per la gestione errori
 Creare un middleware per le immagini
-Mostrare la media delle recensioni nel dettaglio del libro
+Mostrare la media delle recensioni nel dettaglio del film
 Buon Lavoro
