@@ -16,7 +16,7 @@ const show = (req, res) => {
     const { id } = req.params
 
     //query per il recupero del film avente id recuperato
-    const movieSql = "SELECT * FROM moovies WHERE id = ?";
+    const movieSql = "SELECT * FROM movies WHERE id = ?";
 
     //query per il recupero delle recensioni del film recuperato
     const reviewsSql = `
@@ -27,7 +27,8 @@ const show = (req, res) => {
     //eseguo la query per recuperare il film 
     connection.query(movieSql, [id], (err, movieResult) => {
         if(err) return res.status(500).json({error: "Database query failed:" +err });
-        
+
+        return res.json(movieResult);
 
     })
 }
