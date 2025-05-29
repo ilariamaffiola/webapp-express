@@ -1,9 +1,16 @@
 //importo express
 const express = require('express');
+
+//importo dotenv
+const dotenv = require('dotenv');
+
+//utilizziamo la variabile dotenv
+dotenv.config();
+
 //iniziallizzo express
 const app = express();
 //definisco la porta
-const port = 3000;
+const port = process.env.PORT;
 
 //uso il middleware per gli asset statici
 app.use(express.static('public'));
