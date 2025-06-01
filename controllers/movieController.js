@@ -9,14 +9,15 @@ const index = (req, res) => {
         
         //ciclo l'array per aggiungere il nuovo path dell'immagine
         const movies = movieResults.map((movie) => {
-            console.log(req, movie.image)
             const obj = {
                 ...movie, 
                 image: req.imagePath + movie.image
             }
+            return obj;
+
         })
 
-        res.json(movieResults);
+        res.json(movies);
     })
 }
 //show
