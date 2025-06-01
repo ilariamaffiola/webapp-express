@@ -46,7 +46,8 @@ const show = (req, res) => {
             //aggiungo le recensioni al film
             movie.reviews = reviewsResult;
             
-            return res.json(movie);
+            return res.json({...movie, 
+                image: req.imagePath + movie.image});
         })
 
         
