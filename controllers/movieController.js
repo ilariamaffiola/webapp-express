@@ -5,7 +5,16 @@ const connection = require('../data/db');
 const index = (req, res) => {
     connection.query("SELECT * FROM movies", (err, movieResults) => {
         if(err) return res.status(500).json({error: "Database query failed:" +err });
-            
+        
+        
+        //ciclo l'array per aggiungere il nuovo path dell'immagine
+        const movies = movieResults.map((movie) => {
+            console.log(req, movie.image)
+            const obj = {
+                ...movie, 
+                image: req.imagePath + movie.image
+            }
+        })
 
         res.json(movieResults);
     })
