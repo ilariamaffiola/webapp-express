@@ -26,7 +26,10 @@ const show = (req, res) => {
     const { id } = req.params
 
     //query per il recupero del film avente id recuperato
-    const movieSql = "SELECT * FROM movies WHERE id = ?";
+    const movieSql = `SELECT movies.*, ROUND(AVG(reviews.vote)) AS average_vote 
+    FROM movies 
+    JOIN reviews ON reviews.movie_id = movies.id 
+    WHERE movies.id = ?`;
 
     //query per il recupero delle recensioni del film recuperato
     const reviewsSql = `
@@ -43,9 +46,10 @@ const show = (req, res) => {
         //eseguo la query per il recupero delle rensioni
         connection.query(reviewsSql, [id], (err, reviewsResult) => {
             if(err) return res.status(500).json({error: "Database query failed:" +err });
+
             //aggiungo le recensioni al film
             movie.reviews = reviewsResult;
-            
+           movie.average_vote = parseInt(movie.average_vote);
             return res.json({...movie, 
                 image: req.imagePath + movie.image});
         })
