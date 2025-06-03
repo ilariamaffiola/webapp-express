@@ -12,6 +12,12 @@ const app = express();
 //definisco la porta
 const port = process.env.SERVER_PORT;
 
+//importo cors
+const cors = require('cors');
+
+//uso cors
+app.use(cors({origin: process.env.FE_APP}))
+
 //importo il router
 const movieRouter = require('./router/movieRouter');
 
