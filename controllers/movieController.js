@@ -59,7 +59,27 @@ const show = (req, res) => {
     })
 }
 
+//store
+const store = (req, res, next) => {
+    //recupero i dati del body della richiesta
+    const { movie_id, name, vote, text} = req.body;
+
+    const sql = `INSERT INTO reviews (movie_id, name, vote, text) VALUES (?, ?, ?, ?)`;
+    connection.query(sql, [movie_id, name, vote, text], (err, result) => {
+        if(err){
+            console.log(err)
+            return next('errore caricamento nuova recensione')
+        };
+        res.status(201).json({
+            status: 'success',
+            message: 'Recensione inserita correttamente'
+        })
+    });
+    
+}
+
 module.exports = {
     index,
-    show
+    show,
+    store
 }
